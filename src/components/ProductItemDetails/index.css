@@ -1,0 +1,121 @@
+.product-item-details-bg-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Roboto;
+}
+.product-item-bg-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 50px;
+}
+.product-item-details-container {
+  display: flex;
+  gap: 30px;
+}
+.selected-product-img {
+  height: 600px;
+  width: 30%;
+  border-radius: 20px;
+}
+.product-item-info-container {
+  display: flex;
+  flex-direction: column;
+}
+.selected-product-title {
+  color: #616e7c;
+  font-size: 40px;
+}
+.selected-product-price {
+  color: #171f46;
+  font-size: 25px;
+  font-weight: 600;
+}
+.selected-product-review-container {
+  display: flex;
+  gap: 10px;
+}
+.selected-product-rating {
+  height: 40px;
+  background-color: #3b82f6;
+  display: flex;
+  gap: 10px;
+  padding: 0px 6px 0px 6px;
+  border-radius: 10px;
+}
+.selected-product-rating-count {
+  color: #ffffff;
+  align-self: center;
+}
+.selected-product-star-icon {
+  height: 25px;
+  width: 25px;
+  align-self: center;
+}
+
+.selected-product-description {
+  width: 40%;
+  color: #616e7c;
+  font-size: 19px;
+}
+.available-text,
+.brand-text {
+  color: #000000;
+  font-weight: 600;
+}
+.product-availability,
+.product-brand {
+  color: #616e7c;
+  font-size: 19px;
+}
+.product-count-container {
+  width: 100px;
+  display: flex;
+  gap: 20px;
+}
+.product-count-btn {
+  background-color: transparent;
+  border-width: 0px;
+}
+.product-count-icon {
+  height: 20px;
+  width: 20px;
+}
+.product-count-text {
+  color: #616e7c;
+  font-size: 25px;
+  font-weight: 600;
+}
+.add-to-cart-btn {
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-weight: 500;
+  align-self: flex-start;
+  padding: 10px 15px 10px 15px;
+  border-width: 0px;
+  border-radius: 6px;
+}
+.similar-products-list {
+  list-style-type: none;
+  display: flex;
+  padding: 0px;
+  gap: 30px;
+}
+
+.failure-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.failure-view-img {
+  width: 50%;
+}
+.continue-shopping-btn {
+  background-color: #3b82f6;
+  color: #ffffff;
+  padding: 10px 15px 10px 15px;
+  border-width: 0px;
+  border-radius: 6px;
+}
