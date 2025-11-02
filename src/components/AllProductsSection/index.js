@@ -65,27 +65,73 @@ const ratingsList = [
   },
 ];
 
+const apiStatusConstants = {
+  initial: "INITIAL",
+  success: "SUCCESS",
+  failure: "FAILURE",
+  inProgress: "IN_PROGRESS",
+};
+
 class AllProductsSection extends Component {
   state = {
     productsList: [],
-    isLoading: false,
     activeOptionId: sortbyOptions[0].optionId,
+    searchInput: "",
+    activeCategoryId: "",
+    activeRatingId: "",
+    apiStatus: apiStatusConstants.initial,
   };
 
   componentDidMount() {
     this.getProducts();
   }
 
+  onChangeSearchInput = (value) => {
+    this.setState({
+      searchInput: value,
+    });
+  };
+
+  onChangeCategory = (categoryId) => {
+    this.setState(
+      {
+        activeCategoryId: categoryId,
+      },
+      this.getProducts
+    );
+  };
+
+  onChangeRating = (ratingId) => {
+    this.setState(
+      {
+        activeRatingId: ratingId,
+      },
+      this.getProducts
+    );
+  };
+
+  onEnterSearchInput = () => {
+    this.getProducts();
+  };
+
+  clearFilters = () => {
+    this.setState(
+      { searchInput: "", activeCategoryId: "", activeRatingId: "" },
+      this.getProducts
+    );
+  };
+
   getProducts = async () => {
     this.setState({
-      isLoading: true,
+      apiStatus: apiStatusConstants.inProgress,
     });
     const jwtToken = Cookies.get("jwt_token");
 
-    // TODO: Update the code to get products with filters applied
+    // prettier-ignore
 
-    const { activeOptionId } = this.state;
-    const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}`;
+    const {activeOptionId, searchInput, activeCategoryId, activeRatingId} =
+      this.state
+    const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`;
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -105,7 +151,11 @@ class AllProductsSection extends Component {
       }));
       this.setState({
         productsList: updatedData,
-        isLoading: false,
+        apiStatus: apiStatusConstants.success,
+      });
+    } else {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
       });
     }
   };
@@ -117,8 +167,7 @@ class AllProductsSection extends Component {
   renderProductsList = () => {
     const { productsList, activeOptionId } = this.state;
 
-    // TODO: Add No Products View
-    return (
+    return productsList.length !== 0 ? (
       <div className="all-products-container">
         <ProductsHeader
           activeOptionId={activeOptionId}
@@ -131,6 +180,17 @@ class AllProductsSection extends Component {
           ))}
         </ul>
       </div>
+    ) : (
+      <div className="no-products-view-container">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png"
+          alt="no products"
+        />
+        <h1 className="no-products-heading">No Products Found</h1>
+        <p className="no-products-description">
+          We could not find any products. Try other filters.
+        </p>
+      </div>
     );
   };
 
@@ -140,17 +200,52 @@ class AllProductsSection extends Component {
     </div>
   );
 
-  // TODO: Add failure view
+  renderFailureView = () => (
+    <div className="failure-view-container">
+      <img
+        className="failure-view-img"
+        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
+        alt="products failure"
+      />
+      <p className="failure-view-heading">Oops! Something Went Wrong</p>
+      <p className="failure-view-description">
+        We are having some trouble processing your request. Please try again.
+      </p>
+    </div>
+  );
+
+  renderAllProducts = () => {
+    const { apiStatus } = this.state;
+    switch (apiStatus) {
+      case apiStatusConstants.inProgress:
+        return this.renderLoader();
+      case apiStatusConstants.success:
+        return this.renderProductsList();
+      case apiStatusConstants.failure:
+        return this.renderFailureView();
+      default:
+        return null;
+    }
+  };
 
   render() {
-    const { isLoading } = this.state;
+    const { searchInput, activeCategoryId } = this.state;
 
     return (
       <div className="all-products-section">
-        {/* TODO: Update the below element */}
-        <FiltersGroup />
+        <FiltersGroup
+          searchInput={searchInput}
+          activeCategoryId={activeCategoryId}
+          categoryOptions={categoryOptions}
+          ratingsList={ratingsList}
+          onChangeSearchInput={this.onChangeSearchInput}
+          onEnterSearchInput={this.onEnterSearchInput}
+          onChangeCategory={this.onChangeCategory}
+          onChangeRating={this.onChangeRating}
+          clearFilters={this.clearFilters}
+        />
 
-        {isLoading ? this.renderLoader() : this.renderProductsList()}
+        {this.renderAllProducts()}
       </div>
     );
   }

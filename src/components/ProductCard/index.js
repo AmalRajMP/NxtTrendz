@@ -1,8 +1,8 @@
-import './index.css'
+import "./index.css";
 
-const ProductCard = props => {
-  const {productData} = props
-  const {title, brand, imageUrl, rating, price} = productData
+const ProductCard = (props) => {
+  const { productData } = props;
+  const { title, brand, imageUrl, rating, price } = productData;
 
   return (
     <li className="product-item">
@@ -21,6 +21,6 @@ const ProductCard = props => {
         </div>
       </div>
     </li>
-  )
-}
-export default ProductCard
+  );
+};
+export default ProductCard;
