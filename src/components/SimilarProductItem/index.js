@@ -1,8 +1,8 @@
-import "./index.css";
+import './index.css'
 
 const SimilarProductItem = (props) => {
-  const { productDetails } = props;
-  const { imageUrl, title, price, brand, rating } = productDetails;
+  const { productDetails } = props
+  const { imageUrl, title, price, brand, rating } = productDetails
 
   return (
     <li>
@@ -19,7 +19,7 @@ const SimilarProductItem = (props) => {
           <div className="similar-product-rating-container">
             <p className="similar-product-rating">{rating}</p>
             <img
-              className="similar-product-star-img"
+              className="similar-product-star"
               src="https://assets.ccbp.in/frontend/react-js/star-img.png"
               alt="star"
             />
@@ -27,7 +27,7 @@ const SimilarProductItem = (props) => {
         </div>
       </div>
     </li>
-  );
-};
+  )
+}
 
-export default SimilarProductItem;
+export default SimilarProductItem
