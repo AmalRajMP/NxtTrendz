@@ -51,6 +51,29 @@
   }
 }
 
+.demo-credentials {
+  background-color: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.demo-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.demo-label {
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.demo-text {
+  margin-left: 8px;
+  line-height: 1.4;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;

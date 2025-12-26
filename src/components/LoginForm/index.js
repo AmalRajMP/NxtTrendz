@@ -44,7 +44,6 @@ class LoginForm extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-
     if (response.ok === true) {
       this.onSubmitSuccess(data.jwt_token)
     } else {
@@ -112,6 +111,18 @@ class LoginForm extends Component {
           className="login-img"
           alt="website login"
         />
+        <div className="demo-credentials">
+          <p className="demo-title">Login Credentials</p>
+
+          <p className="demo-label">Prime User</p>
+          <p className="demo-text">Username: rahul</p>
+          <p className="demo-text">Password: rahul@2021</p>
+
+          <p className="demo-label">Non-Prime User</p>
+          <p className="demo-text">Username: raja</p>
+          <p className="demo-text">Password: raja@2021</p>
+        </div>
+
         <form className="form-container" onSubmit={this.submitForm}>
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
@@ -123,7 +134,6 @@ class LoginForm extends Component {
           <button type="submit" className="login-button">
             Login
           </button>
-
           {showSubmitError && <p className="error-message">*{errorMsg}</p>}
         </form>
       </div>
