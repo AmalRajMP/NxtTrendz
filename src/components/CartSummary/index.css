@@ -1,0 +1,26 @@
+.cart-summary {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  margin-bottom: 20px;
+}
+.order-total {
+  color: #616e7c;
+  font-size: 20px;
+  font-weight: 500;
+}
+.total-price {
+  color: #000000;
+  font-size: 25px;
+}
+.total-cart-items {
+  font-size: 12px;
+}
+.checkout-btn {
+  background-color: #0b69ff;
+  color: #ffffff;
+  border-width: 0px;
+  border-radius: 3px;
+  padding: 6px 6px;
+}

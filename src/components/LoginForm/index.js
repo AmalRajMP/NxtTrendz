@@ -1,6 +1,6 @@
-import {Component} from 'react'
+import { Component } from 'react'
 import Cookies from 'js-cookie'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 import './index.css'
 
@@ -12,16 +12,16 @@ class LoginForm extends Component {
     errorMsg: '',
   }
 
-  onChangeUsername = event => {
-    this.setState({username: event.target.value})
+  onChangeUsername = (event) => {
+    this.setState({ username: event.target.value })
   }
 
-  onChangePassword = event => {
-    this.setState({password: event.target.value})
+  onChangePassword = (event) => {
+    this.setState({ password: event.target.value })
   }
 
-  onSubmitSuccess = jwtToken => {
-    const {history} = this.props
+  onSubmitSuccess = (jwtToken) => {
+    const { history } = this.props
 
     Cookies.set('jwt_token', jwtToken, {
       expires: 30,
@@ -29,14 +29,14 @@ class LoginForm extends Component {
     history.replace('/')
   }
 
-  onSubmitFailure = errorMsg => {
-    this.setState({showSubmitError: true, errorMsg})
+  onSubmitFailure = (errorMsg) => {
+    this.setState({ showSubmitError: true, errorMsg })
   }
 
-  submitForm = async event => {
+  submitForm = async (event) => {
     event.preventDefault()
-    const {username, password} = this.state
-    const userDetails = {username, password}
+    const { username, password } = this.state
+    const userDetails = { username, password }
     const url = 'https://apis.ccbp.in/login'
     const options = {
       method: 'POST',
@@ -53,7 +53,7 @@ class LoginForm extends Component {
   }
 
   renderPasswordField = () => {
-    const {password} = this.state
+    const { password } = this.state
 
     return (
       <>
@@ -73,7 +73,7 @@ class LoginForm extends Component {
   }
 
   renderUsernameField = () => {
-    const {username} = this.state
+    const { username } = this.state
 
     return (
       <>
@@ -93,7 +93,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    const {showSubmitError, errorMsg} = this.state
+    const { showSubmitError, errorMsg } = this.state
     const jwtToken = Cookies.get('jwt_token')
 
     if (jwtToken !== undefined) {
@@ -123,6 +123,7 @@ class LoginForm extends Component {
           <button type="submit" className="login-button">
             Login
           </button>
+
           {showSubmitError && <p className="error-message">*{errorMsg}</p>}
         </form>
       </div>

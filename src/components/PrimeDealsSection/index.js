@@ -1,7 +1,6 @@
-import {Component} from 'react'
+import { Component } from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-
 
 import ProductCard from '../ProductCard'
 import './index.css'
@@ -32,28 +31,30 @@ class PrimeDealsSection extends Component {
 
     const apiUrl = 'https://apis.ccbp.in/prime-deals'
     const options = {
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
-      method: 'GET',
     }
+
     const response = await fetch(apiUrl, options)
+
     if (response.ok === true) {
       const fetchedData = await response.json()
-      const updatedData = fetchedData.prime_deals.map(product => ({
+      const updatedData = fetchedData.prime_deals.map((product) => ({
+        id: product.id,
         title: product.title,
         brand: product.brand,
         price: product.price,
-        id: product.id,
         imageUrl: product.image_url,
         rating: product.rating,
       }))
+
       this.setState({
         primeDeals: updatedData,
         apiStatus: apiStatusConstants.success,
       })
-    }
-    if (response.status === 401) {
+    } else {
       this.setState({
         apiStatus: apiStatusConstants.failure,
       })
@@ -61,13 +62,13 @@ class PrimeDealsSection extends Component {
   }
 
   renderPrimeDealsList = () => {
-    const {primeDeals} = this.state
+    const { primeDeals } = this.state
 
     return (
       <div>
         <h1 className="primedeals-list-heading">Exclusive Prime Deals</h1>
         <ul className="products-list">
-          {primeDeals.map(product => (
+          {primeDeals.map((product) => (
             <ProductCard productData={product} key={product.id} />
           ))}
         </ul>
@@ -85,12 +86,13 @@ class PrimeDealsSection extends Component {
 
   renderLoadingView = () => (
     <div className="primedeals-loader-container">
-      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+      <Loader type="ThreeDots" color="#0b69ff" height={50} width={50} />
     </div>
   )
 
   render() {
-    const {apiStatus} = this.state
+    const { apiStatus } = this.state
+
     switch (apiStatus) {
       case apiStatusConstants.success:
         return this.renderPrimeDealsList()
